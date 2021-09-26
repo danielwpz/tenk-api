@@ -176,5 +176,13 @@ export default {
    */
   async getNFTs (from) {
 
+  },
+
+  async greet () {
+    return this._contract.greeting(
+      {
+        args: {}
+      }
+    )
   }
 }
