@@ -19,7 +19,7 @@ const networkConfig = {
 
 const contractIdMap = {
   mainnet: 'foo.near',
-  testnet: 'tenk1.neariscool.testnet'
+  testnet: 'tenk2.neariscool.testnet'
 }
 
 /**

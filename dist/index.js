@@ -45,7 +45,7 @@
 
   const contractIdMap = {
     mainnet: 'foo.near',
-    testnet: 'tenk1.neariscool.testnet'
+    testnet: 'tenk2.neariscool.testnet'
   };
 
   /**
@@ -102,7 +102,7 @@
         this._wallet.account(),
         this._contractId,
         {
-          viewMethods: [],
+          viewMethods: ['unit_price', 'total_supply', 'remaining_count'],
           changeMethods: []
         }
       ); 
