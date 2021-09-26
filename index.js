@@ -76,7 +76,7 @@ export default {
       this._wallet.account(),
       this._contractId,
       {
-        viewMethods: [],
+        viewMethods: ['unit_price', 'total_supply', 'remaining_count'],
         changeMethods: []
       }
     ) 
