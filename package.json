@@ -1,0 +1,19 @@
+{
+  "name": "@danielwpz/tenk-api",
+  "version": "0.1.6",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Wang",
+  "license": "ISC",
+  "dependencies": {
+    "near-api-js": "^0.42.0"
+  },
+  "devDependencies": {
+    "rollup": "^2.56.3"
+  }
+}
