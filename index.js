@@ -77,7 +77,7 @@ export default {
       this._contractId,
       {
         viewMethods: ['unit_price', 'total_supply', 'remaining_count'],
-        changeMethods: []
+        changeMethods: ['greeting']
       }
     ) 
   },
