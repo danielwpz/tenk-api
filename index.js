@@ -157,11 +157,12 @@ export default {
   /**
    * Do purchase, will redirect user to wallet
    */
-  async purchase () {
+  async purchase (callbackUrl) {
     const unitPrice = await this.getUnitPrice()
     return this._contract.nft_mint({
       args: {},
-      amount: nearAPI.utils.format.parseNearAmount(unitPrice)
+      amount: nearAPI.utils.format.parseNearAmount(unitPrice),
+      callbackUrl
     })
   },
 
@@ -176,9 +177,7 @@ export default {
     }
 
     return this._contract.nft_tokens_for_owner({
-      args: {
-        account_id: accountId
-      }
+      account_id: accountId
     })
   },
 

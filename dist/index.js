@@ -84,8 +84,8 @@
      * init MUST be called before you can use this object
      * @param {string} network network id, mainnet or testnet
      */
-    async init (network = 'testnet') {
-      this._contractId = contractIdMap[network];
+    async init (network = 'testnet', contractId) {
+      this._contractId = contractId || contractIdMap[network];
       if (!this._contractId) {
         throw new Error('bad network name')
       }
@@ -102,8 +102,8 @@
         this._wallet.account(),
         this._contractId,
         {
-          viewMethods: ['unit_price', 'total_supply', 'remaining_count'],
-          changeMethods: ['greeting']
+          viewMethods: ['unit_price', 'total_supply', 'remaining_count', 'nft_tokens', 'nft_tokens_for_owner'],
+          changeMethods: ['nft_mint']
         }
       ); 
     },
@@ -183,8 +183,13 @@
     /**
      * Do purchase, will redirect user to wallet
      */
-    async purchase () {
-
+    async purchase (callbackUrl) {
+      const unitPrice = await this.getUnitPrice();
+      return this._contract.nft_mint({
+        args: {},
+        amount: nearAPI__namespace.utils.format.parseNearAmount(unitPrice),
+        callbackUrl
+      })
     },
 
     /**
@@ -192,7 +197,14 @@
      * @returns {Promise<NFT[]>}
      */
     async getMyCollections () {
+      const accountId = this.getAccountId();
+      if (!accountId) {
+        throw new Error('please login first')
+      }
 
+      return this._contract.nft_tokens_for_owner({
+        account_id: accountId
+      })
     },
 
     /**
@@ -201,16 +213,12 @@
      * @returns {Promise<NFT[]>}
      */
     async getNFTs (from) {
-
-    },
-
-    async greet () {
-      return this._contract.greeting(
-        {
-          args: {}
+      return this._contract.nft_tokens({
+        args: {
+          from_index: from
         }
-      )
-    }
+      })
+    },
   };
 
   return index;
