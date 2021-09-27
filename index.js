@@ -193,4 +193,17 @@ export default {
       }
     })
   },
+
+  /**
+   * 当成功调用purchase后，钱包会跳转回当前页面，获取到参数中的transaction hash，调用此方法得到返回值
+   * @param {string} txnHash 
+   * @returns {Promise<object>}
+   */
+  async getSuccessResult () {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const txnHash = urlSearchParams.get('transactionHashes')
+    const result = await this._provider.txStatus(txnHash, this.getAccountId())
+    const encodedReturnVal = result.receipts_outcome[0].outcome.status.SuccessValue
+    return JSON.parse(atob(encodedReturnVal))
+  }
 }
